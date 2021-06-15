@@ -11,3 +11,9 @@ require {
 allow logrotate_t user_tmp_t:file write;
 allow logrotate_t var_log_t:file getattr;
 
+# Create log files as var_log_t in var_t folders
+# The fcontext for /var/opt/microsoft/omsagent/[^/]*/log(/.*)? will only need to target the files
+filetrans_pattern(unconfined_service_t, var_t, var_log_t, file, "omsconfig.log")
+filetrans_pattern(unconfined_service_t, var_t, var_log_t, file, "omsconfigdetailed.log")
+filetrans_pattern(unconfined_service_t, var_t, var_log_t, file, "urp.log")
+filetrans_pattern(unconfined_service_t, var_t, var_log_t, file, "omsagent.log")
